@@ -1,167 +1,67 @@
 var CSSColors = CSSColors || {};
 
 window.onload = function() { 
-	CSSColors.loadColors();
+	var radio = document.sortForm.sort;
+    for(var i = 0; i < radio.length; i++) {
+        radio[i].onclick = function() {
+            CSSColors.loadColors(CSSColors.colors[this.value]);
+        };
+    }
+    // Default load to hue
+	CSSColors.loadColors(CSSColors.colors['hue']);
 }
 
 /**
  * Color Names Store
  *
- * Encapsules the different color properties in CSS along with browser that support the property
- * in an array of JSON.
+ * Encapsules the different color properties in CSS.
  *
- * an entry needs 'name' property to get displayed, other properties are optional if no value for browser 
- * is set the browser will be indicated as not supported.
+ * The colors are sorted in into 3 types hue value, hex value and alphabetic order.
  */
 
-CSSColors.colors = [
-'{ "name" : "purple", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darkmagenta", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "fuchsia", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "violet", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "plum", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "thistle", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "orchid", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "mediumvioletred", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "deeppink", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "hotpink", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "palevioletred", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lavenderblush", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "crimson", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "pink", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lightpink", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "black", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "maroon", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darkred", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "brown", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "dimgray", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "dimgrey", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "firebrick", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "red", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "gray", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "grey", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "indianred", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "rosybrown", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darkgray", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darkgrey", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lightcoral", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "silver", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lightgray", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lightgrey", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "gainsboro", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "whitesmoke", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "snow", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "white", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "salmon", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "mistyrose", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "tomato", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darksalmon", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "orangered", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "coral", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lightsalmon", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "sienna", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "seashell", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "saddlebrown", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "chocolate", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "sandybrown", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "peachpuff", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "peru", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "linen", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "bisque", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darkorange", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "burlywood", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "tan", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "antiquewhite", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "navajowhite", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "blanchedalmond", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "papayawhip", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "moccasin", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "orange", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "wheat", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "oldlace", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "floralwhite", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darkgoldenrod", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "goldenrod", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "cornsilk", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "gold", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "khaki", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lemonchiffon", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "palegoldenrod", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darkkhaki", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "olive", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "yellow", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lightgoldenrodyellow", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "beige", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lightyellow", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "ivory", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "olivedrab", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "yellowgreen", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darkolivegreen", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "greenyellow", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "chartreuse", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lawngreen", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darkgreen", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "green", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "forestgreen", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "limegreen", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lime", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darkseagreen", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lightgreen", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "palegreen", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "honeydew", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "seagreen", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "mediumseagreen", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "springgreen", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "mintcream", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "mediumspringgreen", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "mediumaquamarine", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "aquamarine", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "turquoise", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lightseagreen", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "mediumturquoise", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darkslategray", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darkslategrey", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "teal", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darkcyan", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "aqua", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "paleturquoise", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lightcyan", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "azure", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darkturquoise", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "cadetblue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "powderblue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "deepskyblue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lightblue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "skyblue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lightskyblue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "steelblue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "aliceblue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "dodgerblue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "slategray", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "slategrey", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lightslategray", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lightslategrey", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lightsteelblue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "cornflowerblue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "royalblue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "navy", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "midnightblue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darkblue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "mediumblue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "blue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "lavender", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "ghostwhite", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darkslateblue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "slateblue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "mediumslateblue", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "mediumpurple", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "rebeccapurple", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "blueviolet", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "indigo", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darkorchid", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "darkviolet", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}',
-'{ "name" : "mediumorchid", "chrome" : 1, "firefox" : 1, "safari":1, "opera" : 1, "internet-explorer" : 1, "edge" : 1}'
-];
+CSSColors.colors = {
+	'hue' : ['purple', 'darkmagenta', 'fuchsia', 'violet', 'plum', 'thistle', 'orchid', 'mediumvioletred', 'deeppink', 
+			'hotpink', 'palevioletred', 'lavenderblush', 'crimson', 'pink', 'lightpink', 'black', 'maroon', 'darkred', 'brown', 'dimgray', 
+			'dimgrey', 'firebrick', 'red', 'gray', 'grey', 'indianred', 'rosybrown', 'darkgray', 'darkgrey', 'lightcoral', 'silver', 
+			'lightgray', 'lightgrey', 'gainsboro', 'whitesmoke', 'snow', 'white', 'salmon', 'mistyrose', 'tomato', 'darksalmon', 'orangered', 
+			'coral', 'lightsalmon', 'sienna', 'seashell', 'saddlebrown', 'chocolate', 'sandybrown', 'peachpuff', 'peru', 'linen', 'bisque', 
+			'darkorange', 'burlywood', 'tan', 'antiquewhite', 'navajowhite', 'blanchedalmond', 'papayawhip', 'moccasin', 'orange', 'wheat', 
+			'oldlace', 'floralwhite', 'darkgoldenrod', 'goldenrod', 'cornsilk', 'gold', 'khaki', 'lemonchiffon', 'palegoldenrod', 'darkkhaki', 
+			'olive', 'yellow', 'lightgoldenrodyellow', 'beige', 'lightyellow', 'ivory', 'olivedrab', 'yellowgreen', 'darkolivegreen', 'greenyellow', 
+			'chartreuse', 'lawngreen', 'darkgreen', 'green', 'forestgreen', 'limegreen', 'lime', 'darkseagreen', 'lightgreen', 'palegreen', 'honeydew', 
+			'seagreen', 'mediumseagreen', 'springgreen', 'mintcream', 'mediumspringgreen', 'mediumaquamarine', 'aquamarine', 'turquoise', 
+			'lightseagreen', 'mediumturquoise', 'darkslategray', 'darkslategrey', 'teal', 'darkcyan', 'aqua', 'paleturquoise', 'lightcyan', 
+			'azure', 'darkturquoise', 'cadetblue', 'powderblue', 'deepskyblue', 'lightblue', 'skyblue', 'lightskyblue', 'steelblue', 'aliceblue', 
+			'dodgerblue', 'slategray', 'slategrey', 'lightslategray', 'lightslategrey', 'lightsteelblue', 'cornflowerblue', 'royalblue', 'navy', 
+			'midnightblue', 'darkblue', 'mediumblue', 'blue', 'lavender', 'ghostwhite', 'darkslateblue', 'slateblue', 'mediumslateblue', 'mediumpurple', 
+			'rebeccapurple', 'blueviolet', 'indigo', 'darkorchid', 'darkviolet', 'mediumorchid'],
+	'hex' : ['white', 'ivory', 'lightyellow', 'yellow', 'snow', 'floralwhite', 'lemonchiffon', 'cornsilk', 'seashell', 'lavenderblush', 'papayawhip', 
+			'blanchedalmond', 'mistyrose', 'bisque', 'moccasin', 'navajowhite', 'peachpuff', 'gold', 'pink', 'lightpink', 'orange', 'lightsalmon', 'darkorange', 
+			'coral', 'hotpink', 'tomato', 'orangered', 'deeppink', 'fuchsia', 'red', 'oldlace', 'lightgoldenrodyellow', 'linen', 'antiquewhite', 'salmon', 'ghostwhite', 
+			'mintcream', 'whitesmoke', 'beige', 'wheat', 'sandybrown', 'azure', 'honeydew', 'aliceblue', 'khaki', 'lightcoral', 'palegoldenrod', 'violet', 'darksalmon', 
+			'lavender', 'lightcyan', 'burlywood', 'plum', 'gainsboro', 'crimson', 'palevioletred', 'goldenrod', 'orchid', 'thistle', 'lightgray', 'lightgrey', 'tan', 
+			'chocolate', 'peru', 'indianred', 'mediumvioletred', 'silver', 'darkkhaki', 'rosybrown', 'mediumorchid', 'darkgoldenrod', 'firebrick', 'powderblue', 
+			'lightsteelblue', 'paleturquoise', 'greenyellow', 'lightblue', 'darkgray', 'darkgrey', 'brown', 'sienna', 'yellowgreen', 'darkorchid', 'palegreen', 
+			'darkviolet', 'mediumpurple', 'lightgreen', 'darkseagreen', 'saddlebrown', 'darkmagenta', 'darkred', 'blueviolet', 'lightskyblue', 'skyblue', 
+			'gray', 'grey', 'olive', 'purple', 'maroon', 'aquamarine', 'chartreuse', 'lawngreen', 'mediumslateblue', 'lightslategray', 'lightslategrey', 
+			'slategray', 'slategrey', 'olivedrab', 'slateblue', 'dimgray', 'dimgrey', 'mediumaquamarine', 'rebeccapurple', 'cornflowerblue', 'cadetblue', 
+			'darkolivegreen', 'indigo', 'mediumturquoise', 'darkslateblue', 'steelblue', 'royalblue', 'turquoise', 'mediumseagreen', 'limegreen', 'darkslategray', 
+			'darkslategrey', 'seagreen', 'forestgreen', 'lightseagreen', 'dodgerblue', 'midnightblue', 'aqua', 'springgreen', 'lime', 'mediumspringgreen', 
+			'darkturquoise', 'deepskyblue', 'darkcyan', 'teal', 'green', 'darkgreen', 'blue', 'mediumblue', 'darkblue', 'navy', 'black'],
+	'alpha' : ['aliceblue', 'antiquewhite', 'aqua', 'aquamarine', 'azure', 'beige', 'bisque', 'black', 'blanchedalmond', 'blue', 'blueviolet', 'brown', 
+				'burlywood', 'cadetblue', 'chartreuse', 'chocolate', 'coral', 'cornflowerblue', 'cornsilk', 'crimson', 'darkblue', 'darkcyan', 'darkgoldenrod', 
+				'darkgray', 'darkgreen', 'darkgrey', 'darkkhaki', 'darkmagenta', 'darkolivegreen', 'darkorange', 'darkorchid', 'darkred', 'darksalmon', 'darkseagreen', 
+				'darkslateblue', 'darkslategray', 'darkslategrey', 'darkturquoise', 'darkviolet', 'deeppink', 'deepskyblue', 'dimgray', 'dimgrey', 'dodgerblue', 
+				'firebrick', 'floralwhite', 'forestgreen', 'fuchsia', 'gainsboro', 'ghostwhite', 'gold', 'goldenrod', 'gray', 'green', 'greenyellow', 'grey', 'honeydew', 
+				'hotpink', 'indianred', 'indigo', 'ivory', 'khaki', 'lavender', 'lavenderblush', 'lawngreen', 'lemonchiffon', 'lightblue', 'lightcoral', 'lightcyan', 
+				'lightgoldenrodyellow', 'lightgray', 'lightgreen', 'lightgrey', 'lightpink', 'lightsalmon', 'lightseagreen', 'lightskyblue', 'lightslategray', 'lightslategrey', 
+				'lightsteelblue', 'lightyellow', 'lime', 'limegreen', 'linen', 'maroon', 'mediumaquamarine', 'mediumblue', 'mediumorchid', 'mediumpurple', 'mediumseagreen', 
+				'mediumslateblue', 'mediumspringgreen', 'mediumturquoise', 'mediumvioletred', 'midnightblue', 'mintcream', 'mistyrose', 'moccasin', 'navajowhite', 'navy', 
+				'oldlace', 'olive', 'olivedrab', 'orange', 'orangered', 'orchid', 'palegoldenrod', 'palegreen', 'paleturquoise', 'palevioletred', 'papayawhip', 'peachpuff', 
+				'peru', 'pink', 'plum', 'powderblue', 'purple', 'rebeccapurple', 'red', 'rosybrown', 'royalblue', 'saddlebrown', 'salmon', 'sandybrown', 'seagreen', 'seashell', 
+				'sienna', 'silver', 'skyblue', 'slateblue', 'slategray', 'slategrey', 'snow', 'springgreen', 'steelblue', 'tan', 'teal', 'thistle', 'tomato', 'turquoise', 
+				'violet', 'wheat', 'white', 'whitesmoke', 'yellow', 'yellowgreen']
+}
 
 /**
  * Color Loader
@@ -169,17 +69,19 @@ CSSColors.colors = [
  * Called on page load, parses the Array, extract data and transfer to createNode to make an entry.
  * returned node is appended to the div.
  */
-CSSColors.loadColors = function() {
-	var colorItems = document.getElementById("colorItems");
+CSSColors.loadColors = function(colors) {
 	var loadingContainer = document.getElementById("loading-container");
-	loadingContainer.parentElement.removeChild(loadingContainer);
-	var sizeOfcolorItems = CSSColors.colors.length;
+	loadingContainer.setAttribute("style", "display:table;");
+	var colorItems = document.getElementById("colorItems");
+	colorItems.innerHTML='';
+	loadingContainer.setAttribute("style", "display:none");
+	var sizeOfcolorItems = colors.length;
 	var end = 0;
-	for ( var color in CSSColors.colors ) {
+	for ( var color in colors ) {
 		if ( (sizeOfcolorItems-1 ) == color) {
 			end = 1;
 		}
-		colorItems.appendChild(CSSColors.createNode(CSSColors.colors[color], color, end));
+		colorItems.appendChild(CSSColors.createNode(colors[color], color, end));
 	}
 }
 
@@ -189,8 +91,7 @@ CSSColors.loadColors = function() {
  * Cretes new node for a property and sets the color value to it.
  */
 CSSColors.createNode = function(colorData, counter, end ) {
-	var colorData =  JSON.parse(colorData);
-	if ( colorData['name'] ) {
+	if ( colorData ) {
 		var newColorNode = document.createElement("div");
 		var browserSupport = ''; 	// Initilize to null
 		if ( end == 1 ) {
@@ -198,44 +99,9 @@ CSSColors.createNode = function(colorData, counter, end ) {
 		} else {
 			newColorNode.setAttribute("class", "grid column small-4");
 		}
-
-		if ( colorData['chrome']  )  {
-			browserSupport += '<li class="active"><i class="fa fa-chrome"></i></li>';
-		} else {
-			browserSupport += '<li ><i class="fa fa-chrome"></i></li>';
-		}
-
-		if ( colorData['firefox']  )  {
-			browserSupport += '<li class="active"><i class="fa fa-firefox"></i></li>';
-		} else {
-			browserSupport += '<li ><i class="fa fa-firefox"></i></li>';
-		}
-
-		if ( colorData['safari']  )  {
-			browserSupport += '<li class="active"><i class="fa fa-safari"></i></li>';
-		} else {
-			browserSupport += '<li ><i class="fa fa-safari"></i></li>';
-		}
-
-		if ( colorData['opera']  )  {
-			browserSupport += '<li class="active"><i class="fa fa-opera"></i></li>';
-		} else {
-			browserSupport += '<li ><i class="fa fa-opera"></i></li>';
-		}
-
-		if ( colorData['internet-explorer']  )  {
-			browserSupport += '<li class="active"><i class="fa fa-internet-explorer"></i></li>';
-		} else {
-			browserSupport += '<li ><i class="fa fa-internet-explorer"></i></li>';
-		}
-
-		if ( colorData['edge']  )  {
-			browserSupport += '<li class="active"><i class="fa fa-edge"></i></li>';
-		} else {
-			browserSupport += '<li ><i class="fa fa-edge"></i></li>';
-		}		
-		newColorNode.setAttribute("style", "background-color:"+ colorData['name']);
-		newColorNode.innerHTML = '<div class="description-wrap" data-clipboard-action="copy" data-clipboard-target=".color' + counter + '"><div class="description"><div class="holder">Color : <span class="color' + counter + '">' + colorData['name']   + '</span></div></div></div> <ul class="browserSupport">' + browserSupport + '</ul>';
+	
+		newColorNode.setAttribute("style", "background-color:"+ colorData);
+		newColorNode.innerHTML = '<div class="description-wrap" data-clipboard-action="copy" data-clipboard-target=".color' + counter + '"><div class="description"><div class="holder"><span class="color' + counter + '">' + colorData   + '</span></div></div></div>';
 		return newColorNode;
 
 	} else {
