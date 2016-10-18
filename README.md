@@ -8,7 +8,7 @@ http://css-colors.techstream.org/
 
 <strong>Note : This is production version, it includes code & styles for analytics and Advert. Work on master branch.</strong>
 
-Made with help from @nikhiljohn10
+Made with help from <a href="https://github.com/nikhiljohn10">@nikhiljohn10</a>
 
 Add New Color
 --------------
