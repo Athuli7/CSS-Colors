@@ -84,13 +84,24 @@
 				</div>
 			</div>
 		</div>
-		<div id="footer"></div>
+		<div id="footer" class="footer-hidden">
+			<h1>Copied</h1>
+		</div>
 	</div>
 	<script src="js/script.js"></script>
 	<script src="js/clipboard.min.js"></script>
 	<script>
 		var clipboard = new Clipboard('.description-wrap');
 
+		clipboard.on('success', function(e) {
+			var footer = document.getElementById("footer");
+			footer.setAttribute("class", "footer-visible");
+			setTimeout(hideFooter, 2000);
+			function hideFooter() {
+				footer.setAttribute("class", "footer-hidden");
+			}
+		});
+		
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
