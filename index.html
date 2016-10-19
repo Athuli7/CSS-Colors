@@ -64,13 +64,22 @@
 				</div>
 			</div>
 		</div>
-		<div id="footer"></div>
+		<div id="footer" class="footer-hidden">
+			<h1>Copied</h1>
+		</div>
 	</div>
 	<script src="js/script.js"></script>
 	<script src="js/clipboard.min.js"></script>
 	<script>
 		var clipboard = new Clipboard('.description-wrap');
-		
+		clipboard.on('success', function(e) {
+			var footer = document.getElementById("footer");
+			footer.setAttribute("class", "footer-visible");
+			setTimeout(hideFooter, 2000);
+			function hideFooter() {
+				footer.setAttribute("class", "footer-hidden");
+			}
+		});
 	</script>
 </body>
 </html>
